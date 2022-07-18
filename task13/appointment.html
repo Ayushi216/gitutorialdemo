@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1> Booking Appointment App</h1>
+    <form onsubmit="saveToLocalStorage(event)">
+        <label> Name </label>
+        <input type="text" name="username" required/>
+        <label> Email ID </label>
+        <input type="email" name="emailid" required/>
+        <button> Submit </button>
+    </form>
+    <ul id='listOfUsers'> </ul>
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const name=event.target.username.value;
+            const email=event.target.emailid.value;
+            const obj={
+                name: name,
+                email: email
+            };
+            localStorage.setItem(obj.email,JSON.stringify(obj));
+            showUserOnScreen(obj)
+        }
+        window.addEventListener("DOMContentLoaded", ()=> {
+            const localStorageObj=localStorage;
+            const localStoragekeys= Object.keys(localStorageObj)
+            for (var i=0; i<=localStoragekeys.length;i++){
+                const key=localStoragekeys[i]
+                const userDetailsString=localStorageObj[key];
+                const userDetailsObj= JSON.parse(userDetailsString)
+                showUserOnScreen(userDetailsObj)
+            }
+        })
+        function showUserOnScreen(user){
+            if(localStorage.getItem(user.email)!== null){
+                removeUserGFromScreen(user.email)
+            }
+            const parentNode= document.getElementById('listOfUsers');
+            const childHTML= `<li> Username: ${user.name} <button class="editButton">E </button>     EmailID: ${user.email} <button class="deleteButton">X </button> </li>`
+
+            parentNode.innerHTML=parentNode.innerHTML+childHTML
+            
+        }
+
+        //delet button
+
+        function removeUserGFromScreen(emailId){
+            const parentNode= document.getElementById('listOfUsers')
+            const childDel=document.getElementById('email')
+            if (childDel){
+                parentNode.removeChild(childDel)
+            }
+        }
+    </script>
+  </body>
+</html>

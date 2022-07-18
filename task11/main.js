@@ -24,16 +24,8 @@ function onSubmit(e) {
     // Add text node with input values
     li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
 
-    // Add HTML
-    // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
-
     // Append to ul
     userList.appendChild(li);
-
-    //adding to local storage
-
-    //localStorage.setItem('Name',nameInput.value);
-    //localStorage.setItem('Email',emailInput.value);
 
     let myObj={
       name: nameInput.value,
@@ -44,12 +36,6 @@ function onSubmit(e) {
 
     let myObj_serialized= JSON.stringify(myObj)
     localStorage.setItem("myObj", myObj_serialized);
-  
-
-    //parse it
-
-    let myObj_deserialized=JSON.parse(localStorage.getItem(myObj));
-    console.log(localStorage)
    
     // Clear fields
     nameInput.value = '';
